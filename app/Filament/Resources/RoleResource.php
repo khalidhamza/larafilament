@@ -2,8 +2,9 @@
 
 namespace App\Filament\Resources;
 
-use App\Filament\Resources\PermissionResource\Pages;
-use App\Filament\Resources\PermissionResource\RelationManagers;
+use App\Filament\Resources\RoleResource\Pages;
+use App\Filament\Resources\RoleResource\RelationManagers;
+use App\Filament\Resources\RoleResource\RelationManagers\PermissionsRelationManager;
 use Filament\Forms;
 use Filament\Forms\Components\Checkbox;
 use Filament\Forms\Components\CheckboxList;
@@ -17,15 +18,15 @@ use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
-use Spatie\Permission\Models\Permission;
+use Spatie\Permission\Models\Role;
 
-class PermissionResource extends Resource
+class RoleResource extends Resource
 {
-    protected static ?string $model = Permission::class;
+    protected static ?string $model = Role::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-key';
-
-    protected static ?string $navigationGroup = 'Admins Management';
+    protected static ?string $navigationIcon = 'heroicon-o-cog';
+    
+    protected static ?string $navigationGroup  = 'Admins Management';
 
     public static function form(Form $form): Form
     {
@@ -33,7 +34,11 @@ class PermissionResource extends Resource
             ->schema([
                 Section::make()->schema([
                     TextInput::make('name')->required()->unique(ignoreRecord:true),
-                ]),
+                    CheckboxList::make('permissions')
+                            ->relationship('permissions', 'name')
+                            ->searchable()
+                            ->columns(2),
+                ])
             ]);
     }
 
@@ -41,27 +46,33 @@ class PermissionResource extends Resource
     {
         return $table
             ->columns([
-                TextColumn::make('id'),
-                TextColumn::make('name')->searchable()->sortable(),
+                TextColumn::make('name')->sortable()->searchable(),
             ])
             ->filters([
                 //
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
-                // Tables\Actions\DeleteAction::make(),
+                Tables\Actions\DeleteAction::make(),
             ])
             ->bulkActions([
-                // Tables\Actions\BulkActionGroup::make([
-                //     Tables\Actions\DeleteBulkAction::make(),
-                // ]),
+                Tables\Actions\BulkActionGroup::make([
+                    Tables\Actions\DeleteBulkAction::make(),
+                ]),
             ]);
     }
 
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ManagePermissions::route('/'),
+            'index' => Pages\ManageRoles::route('/'),
+        ];
+    }
+
+    public static function getRelations(): array
+    {
+        return [
+            PermissionsRelationManager::class
         ];
     }
 }
