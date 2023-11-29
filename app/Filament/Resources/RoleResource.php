@@ -8,6 +8,7 @@ use App\Filament\Resources\RoleResource\Pages\EditRole;
 use App\Filament\Resources\RoleResource\Pages\ListRoles;
 use App\Filament\Resources\RoleResource\RelationManagers;
 use App\Filament\Resources\RoleResource\RelationManagers\PermissionsRelationManager;
+use App\Traits\ResourcePermissions;
 use Filament\Forms;
 use Filament\Forms\Components\Checkbox;
 use Filament\Forms\Components\CheckboxList;
@@ -26,11 +27,16 @@ use Spatie\Permission\Models\Role;
 
 class RoleResource extends Resource
 {
+    use ResourcePermissions;
+    
     protected static ?string $model = Role::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-cog';
     
     protected static ?string $navigationGroup  = 'Admins Management';
+    
+    protected static string $permissionName = 'roles';
+
 
     public static function form(Form $form): Form
     {

@@ -4,6 +4,7 @@ namespace App\Filament\Resources;
 
 use App\Filament\Resources\PermissionResource\Pages;
 use App\Filament\Resources\PermissionResource\RelationManagers;
+use App\Traits\ResourcePermissions;
 use Filament\Forms;
 use Filament\Forms\Components\Checkbox;
 use Filament\Forms\Components\CheckboxList;
@@ -21,11 +22,15 @@ use Spatie\Permission\Models\Permission;
 
 class PermissionResource extends Resource
 {
+    use ResourcePermissions;
+
     protected static ?string $model = Permission::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-key';
 
     protected static ?string $navigationGroup = 'Admins Management';
+
+    protected static string $permissionName = 'roles';
 
     public static function form(Form $form): Form
     {

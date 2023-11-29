@@ -6,6 +6,7 @@ use App\Filament\Resources\AdminResource\Pages;
 use App\Filament\Resources\AdminResource\Pages\EditAdmin;
 use App\Filament\Resources\AdminResource\RelationManagers;
 use App\Models\Admin;
+use App\Traits\ResourcePermissions;
 use Filament\Forms;
 use Filament\Forms\Components\Section;
 use Filament\Forms\Components\Select;
@@ -23,11 +24,15 @@ use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class AdminResource extends Resource
 {
+    use ResourcePermissions;
+
     protected static ?string $model = Admin::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-users';
 
     protected static ?string $navigationGroup = 'Admins Management';
+
+    protected static string $permissionName = 'admins';
 
     public static function form(Form $form): Form
     {
