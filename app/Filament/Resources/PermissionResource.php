@@ -30,7 +30,9 @@ class PermissionResource extends Resource
 
     protected static ?string $navigationGroup = 'Admins Management';
 
-    protected static string $permissionName = 'roles';
+    protected static ?int $navigationSort = 3;
+
+    protected static string $permissionName = 'permissions';
 
     public static function form(Form $form): Form
     {

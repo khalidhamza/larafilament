@@ -34,6 +34,8 @@ class RoleResource extends Resource
     protected static ?string $navigationIcon = 'heroicon-o-cog';
     
     protected static ?string $navigationGroup  = 'Admins Management';
+
+    protected static ?int $navigationSort = 2;
     
     protected static string $permissionName = 'roles';
 
