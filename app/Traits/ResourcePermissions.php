@@ -8,26 +8,31 @@ trait ResourcePermissions
 {
     public static function canViewAny(): bool
     {
-        $permissionName = 'read '. self::$permissionName;
+        $permissionName = 'read '. self::getPermissionName();
         return AdminService::can($permissionName);
     }
 
     public static function canCreate(): bool
     {
-        $permissionName = 'create '. self::$permissionName;
+        $permissionName = 'create '. self::getPermissionName();
         return AdminService::can($permissionName);
     }
 
     public static function canEdit(Model $record): bool
     {
-        $permissionName = 'update '. self::$permissionName;
+        $permissionName = 'update '. self::getPermissionName();
         return AdminService::can($permissionName);
     }
 
     public static function canDelete(Model $record): bool
     {
-        $permissionName = 'delete '. self::$permissionName;
+        $permissionName = 'delete '. self::getPermissionName();
         return AdminService::can($permissionName);
+    }
+
+    private static function getPermissionName() : string 
+    {
+        return self::$permissionName ?? "";
     }
 
 }

@@ -29,7 +29,7 @@ class AdminPanelProvider extends PanelProvider
             ->path('admin')
             ->login()
             // ->darkMode(false)
-            ->brandName('Lara Filament')
+            ->brandName(strtoupper(config('app.name')))
             ->spa(true)
             ->passwordReset()
             ->profile()

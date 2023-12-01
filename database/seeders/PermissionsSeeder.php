@@ -18,7 +18,6 @@ class PermissionsSeeder extends Seeder
         $roles          = ['developer'];
         $permissions    = ['create', 'read', 'update', 'delete'];
         $resources      = ['permissions', 'roles', 'admins'];
-        $adminsEmails   = ['contact@khalidhamza.net'];
         $guardName      = Admin::getDefaultGuardName();
 
         // create permissions
@@ -44,11 +43,12 @@ class PermissionsSeeder extends Seeder
             $createdRoles[] = $role;
         }
 
-        // assign the roles to the admins
-        $admins = Admin::whereIn('email', $adminsEmails)->get();
-        foreach($admins as $admin){
-            $admin->syncRoles($createdRoles);
-        }
+        // create new admin and assign to him the created role
+        Admin::create([
+            'name'      => 'Khalid Hamza',
+            'email'     => 'contact@khalidhamza.net',
+            'password'  => bcrypt('123456'),
+        ])->syncRoles($createdRoles);
 
     }
 }
