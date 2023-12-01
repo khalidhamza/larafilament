@@ -3,12 +3,17 @@
 namespace App\Filament\Widgets;
 
 use App\Services\AdminService;
+use App\Traits\WidgetPermissions;
 use Filament\Widgets\StatsOverviewWidget as BaseWidget;
 use Filament\Widgets\StatsOverviewWidget\Stat;
 
 class StatisticsWidget extends BaseWidget
 {
+    use WidgetPermissions;
+    
     protected static ?int $sort = 1;
+
+    protected static string $permissionName = 'statistics';
 
     protected function getStats(): array
     {

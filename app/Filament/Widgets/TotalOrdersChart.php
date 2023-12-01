@@ -2,13 +2,18 @@
 
 namespace App\Filament\Widgets;
 
+use App\Traits\WidgetPermissions;
 use Filament\Widgets\ChartWidget;
 
 class TotalOrdersChart extends ChartWidget
 {
+    use WidgetPermissions;
+
     protected static ?string $heading = 'Total Orders';
 
     protected static ?int $sort = 2;
+
+    protected static string $permissionName = 'total orders chart';
 
     protected function getData(): array
     {

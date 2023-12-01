@@ -2,15 +2,20 @@
 
 namespace App\Filament\Widgets;
 
+use App\Traits\WidgetPermissions;
 use Filament\Widgets\ChartWidget;
 
 class SalesValueChart extends ChartWidget
 {
+    use WidgetPermissions;
+
     protected static ?string $heading = 'Sales Value';
 
     protected static ?int $sort = 2;
 
     protected int | string | array $columnSpan  = 1;
+    
+    protected static string $permissionName = 'sales value chart';
 
     protected function getData(): array
     {
