@@ -6,6 +6,7 @@ use App\Filament\Resources\RoleResource\Pages\CreateRole;
 use App\Filament\Resources\RoleResource\Pages\EditRole;
 use App\Filament\Resources\RoleResource\Pages\ListRoles;
 use App\Filament\Resources\RoleResource\RelationManagers\PermissionsRelationManager;
+use App\Services\AdminService;
 use App\Traits\ResourcePermissions;
 use Filament\Forms\Components\CheckboxList;
 use Filament\Forms\Components\Section;
@@ -15,7 +16,7 @@ use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
-
+use Illuminate\Database\Eloquent\Builder;
 use Spatie\Permission\Models\Role;
 
 class RoleResource extends Resource
@@ -40,7 +41,21 @@ class RoleResource extends Resource
                 Section::make()->schema([
                     TextInput::make('name')->required()->unique(ignoreRecord:true),
                     CheckboxList::make('permissions')
-                            ->relationship('permissions', 'name')
+                            ->relationship(
+                                'permissions', 
+                                'name',
+                                function(Builder $query, string $context){
+                                    if(! AdminService::hasRole('developer')){
+                                        $permissions    = [
+                                            'create permissions',
+                                            'read permissions',
+                                            'update permissions',
+                                            'delete permissions',
+                                        ];
+                                        $query->whereNotIn('name', $permissions);
+                                    }
+                                }
+                            )
                             ->searchable()
                             ->columns(2),
                 ])
@@ -81,5 +96,14 @@ class RoleResource extends Resource
         return [
             PermissionsRelationManager::class
         ];
+    }
+
+    public static function getEloquentQuery(): Builder
+    {
+        return parent::getEloquentQuery()->where(function($q){
+            if(! AdminService::hasRole('developer')){
+                $q->where('name', '!=', 'developer');
+            }
+        });
     }
 }

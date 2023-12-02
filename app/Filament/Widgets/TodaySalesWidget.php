@@ -23,7 +23,10 @@ class TodaySalesWidget extends BaseWidget
     public function table(Table $table): Table
     {
         return $table
-            ->query(AdminResource::getEloquentQuery())
+            ->query(
+                AdminResource::getEloquentQuery()
+                    ->whereDate('created_at', now()->format('Y-m-d'))
+            )
             ->defaultPaginationPageOption(10)
             ->defaultSort('created_at', 'desc')
             ->columns([

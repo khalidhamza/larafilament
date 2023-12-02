@@ -4,6 +4,7 @@ namespace App\Filament\Resources;
 
 use App\Filament\Resources\AdminResource\Pages;
 use App\Models\Admin;
+use App\Services\AdminService;
 use App\Traits\ResourcePermissions;
 use Filament\Forms\Components\Section;
 use Filament\Forms\Components\Select;
@@ -15,6 +16,7 @@ use Filament\Tables;
 use Filament\Tables\Actions\DeleteAction;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
+use Illuminate\Database\Eloquent\Builder;
 
 class AdminResource extends Resource
 {
@@ -43,7 +45,15 @@ class AdminResource extends Resource
                         ->required()
                         ->searchable()
                         ->preload()
-                        ->relationship('roles', 'name'),
+                        ->relationship(
+                            'roles', 
+                            'name',
+                            function(Builder $query){
+                                if(! AdminService::hasRole('developer')){
+                                    $query->where('name', '!=', 'developer');
+                                }
+                            }
+                        ),
                     TextInput::make('password')
                         ->required()
                         ->password()
@@ -88,5 +98,14 @@ class AdminResource extends Resource
             'create' => Pages\CreateAdmin::route('/create'),
             'edit' => Pages\EditAdmin::route('/{record}/edit'),
         ];
+    }
+
+    public static function getEloquentQuery(): Builder
+    {
+        return parent::getEloquentQuery()->where(function($q){
+            if(! AdminService::hasRole('developer')){
+                $q->withoutRole('developer');
+            }
+        });
     }
 }
