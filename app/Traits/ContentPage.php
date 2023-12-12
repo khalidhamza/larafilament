@@ -47,15 +47,13 @@ trait ContentPage
             ['id' => $this->recordId],
             ['content_en' => $this->content_en, 'content_ar' => $this->content_ar]
         );
-        
+        // $this->dispatch('contact-created');
         return $this->redirect($this->pageUrl);
     }
 
     public function getBreadcrumbs(): array
     {
-        return [
-            'Content Page', $this->pageName
-        ];
+        return ['Content Page', $this->pageName];
     }
 
     public function form(Form $form): Form
