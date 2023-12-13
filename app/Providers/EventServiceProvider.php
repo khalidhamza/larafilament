@@ -2,10 +2,15 @@
 
 namespace App\Providers;
 
+use App\Models\Admin;
+use App\Observers\ModelActionObserver;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Event;
+use Spatie\Permission\Models\Permission;
+use Spatie\Permission\Models\Role;
 
 class EventServiceProvider extends ServiceProvider
 {
@@ -21,11 +26,21 @@ class EventServiceProvider extends ServiceProvider
     ];
 
     /**
+     * The model observers to register.
+     *
+     * @var array<string, string|object|array<int, string|object>>
+     */
+    protected $observers = [
+        Permission::class => ModelActionObserver::class,
+        Role::class => ModelActionObserver::class,
+    ];
+
+    /**
      * Register any events for your application.
      */
     public function boot(): void
     {
-        //
+        // Admin::observe(ModelActionObserver::class);
     }
 
     /**

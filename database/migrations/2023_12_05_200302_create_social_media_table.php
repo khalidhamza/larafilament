@@ -15,8 +15,6 @@ return new class extends Migration
             $table->id();
             $table->char('name', 50)->unique();
             $table->string('url');
-            $table->integer('created_by')->default(0);
-            $table->integer('updated_by')->default(0);
             $table->timestamps();
             $table->softDeletes();
         });

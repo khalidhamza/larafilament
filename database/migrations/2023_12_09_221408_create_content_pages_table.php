@@ -15,8 +15,6 @@ return new class extends Migration
             $table->id();
             $table->text('content_en');
             $table->text('content_ar');
-            $table->integer('created_by')->default(0);
-            $table->integer('updated_by')->default(0);
             $table->timestamps();
             $table->softDeletes();
         });
