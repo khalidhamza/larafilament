@@ -10,6 +10,7 @@ use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Columns\ToggleColumn;
 use Filament\Tables\Table;
 use Spatie\Permission\Models\Permission;
 
@@ -43,6 +44,7 @@ class PermissionResource extends Resource
             ->columns([
                 TextColumn::make('id'),
                 TextColumn::make('name')->searchable()->sortable(),
+                ToggleColumn::make('status'),
             ])
             ->filters([
                 //
