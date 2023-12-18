@@ -42,7 +42,7 @@ class PermissionResource extends Resource
     {
         return $table
             ->columns([
-                TextColumn::make('id'),
+                // TextColumn::make('id'),
                 TextColumn::make('name')->searchable()->sortable(),
                 ToggleColumn::make('status'),
             ])
