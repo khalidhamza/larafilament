@@ -13,6 +13,8 @@ class PrivacyPolicy extends Page
     
     protected static ?string $slug = 'content-pages/privacy-policy';
 
+    protected static ?int $navigationSort = 27;
+
     protected ?string $pageName = 'Privacy Policy';
     
     protected ?string $pageUrl = 'privacy-policy';

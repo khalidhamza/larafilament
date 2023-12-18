@@ -13,6 +13,8 @@ class AboutUs extends Page
     
     protected static ?string $slug = 'content-pages/about-us';
 
+    protected static ?int $navigationSort = 26;
+
     protected ?string $pageName = 'About Us';
     
     protected ?string $pageUrl = 'about-us';

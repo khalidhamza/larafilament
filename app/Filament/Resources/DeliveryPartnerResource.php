@@ -27,7 +27,7 @@ class DeliveryPartnerResource extends Resource
 
     protected static ?string $navigationGroup = 'Countries and delivery';
 
-    protected static ?int $navigationSort = 1;
+    protected static ?int $navigationSort = 22;
 
     protected static string $permissionName = 'delivery partner';
 

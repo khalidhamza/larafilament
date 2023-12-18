@@ -25,11 +25,11 @@ class AdminResource extends Resource
 
     protected static ?string $model = Admin::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-users';
+    // protected static ?string $navigationIcon = 'heroicon-o-users';
 
     protected static ?string $navigationGroup = 'Admins Management';
 
-    protected static ?int $navigationSort = 1;
+    protected static ?int $navigationSort = 31;
 
     protected static string $permissionName = 'admins';
 

@@ -13,6 +13,8 @@ class TermsAndConditions extends Page
     
     protected static ?string $slug = 'content-pages/terms-and-conditions';
 
+    protected static ?int $navigationSort = 28;
+
     protected ?string $pageName = 'Terms and Conditions';
     
     protected ?string $pageUrl = 'terms-and-conditions';
