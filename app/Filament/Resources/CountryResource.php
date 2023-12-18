@@ -6,6 +6,7 @@ use App\Filament\Resources\CountryResource\Pages;
 use App\Filament\Resources\CountryResource\RelationManagers;
 use App\Models\Country;
 use App\Models\DeliveryPartner;
+use App\Traits\ResourcePermissions;
 use Filament\Forms;
 use Filament\Forms\Components\CheckboxList;
 use Filament\Forms\Components\Section;
@@ -23,6 +24,8 @@ use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class CountryResource extends Resource
 {
+    use ResourcePermissions;
+    
     protected static ?string $model = Country::class;
 
     protected static ?string $navigationGroup = 'Countries and delivery';
