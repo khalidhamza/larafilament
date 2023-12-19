@@ -42,6 +42,7 @@ class BannerResource extends Resource
                     TextInput::make('title_ar')->required(),
                     TextInput::make('sub_title_en')->required(),
                     TextInput::make('sub_title_ar')->required(),
+                    TextInput::make('url')->nullable()->url(),
                     FileUpload::make('image')->required()
                         // ->minSize(512)
                         ->directory('banners')

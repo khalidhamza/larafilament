@@ -16,6 +16,7 @@ class Banner extends Model
         'title_ar',
         'sub_title_en',
         'sub_title_ar',
+        'url',
         'image',
         'status',
         'created_by',
