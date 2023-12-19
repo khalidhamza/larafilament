@@ -3,6 +3,7 @@
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\AdminResource\Pages;
+use App\Filament\Resources\AdminResource\Pages\ChangePassword;
 use App\Models\Admin;
 use App\Services\AdminService;
 use App\Traits\ResourcePermissions;
@@ -13,6 +14,7 @@ use Filament\Forms\Form;
 use Filament\Forms\Get;
 use Filament\Resources\Resource;
 use Filament\Tables;
+use Filament\Tables\Actions\Action;
 use Filament\Tables\Actions\DeleteAction;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Columns\ToggleColumn;
@@ -77,8 +79,13 @@ class AdminResource extends Resource
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
+                Action::make('change password')
+                    ->icon('heroicon-o-lock-closed')
+                    ->color('warning')
+                    ->url(fn (Admin $record): string => ChangePassword::getUrl([$record])),
                 DeleteAction::make(),
             ])
+            // route('admins.change_password', $record)
             ->bulkActions([
                 // Tables\Actions\BulkActionGroup::make([
                 //     Tables\Actions\DeleteBulkAction::make(),
@@ -99,6 +106,7 @@ class AdminResource extends Resource
             'index' => Pages\ListAdmins::route('/'),
             'create' => Pages\CreateAdmin::route('/create'),
             'edit' => Pages\EditAdmin::route('/{record}/edit'),
+            'change_password' => ChangePassword::route('/{record}/change-password'),
         ];
     }
 

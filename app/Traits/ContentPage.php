@@ -5,6 +5,7 @@ use App\Models\ContentPage as ModelsContentPage;
 use Filament\Forms\Components\RichEditor;
 use Filament\Forms\Components\Section;
 use Filament\Forms\Form;
+use Filament\Notifications\Notification;
 
 trait ContentPage
 {
@@ -48,6 +49,12 @@ trait ContentPage
             ['content_en' => $this->content_en, 'content_ar' => $this->content_ar]
         );
         // $this->dispatch('contact-created');
+
+        Notification::make() 
+            ->success()
+            ->title('Saved successfully')
+            ->send();
+
         return $this->redirect($this->pageUrl);
     }
 
