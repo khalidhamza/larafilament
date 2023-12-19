@@ -49,7 +49,7 @@ class DeliveryPartnerResource extends Resource
         return $table
             ->columns([
                 TextColumn::make('name')->searchable()->sortable(),
-                TextColumn::make('integration_name'),
+                TextColumn::make('integration_name')->searchable(),
                 ToggleColumn::make('status'),
             ])
             ->filters([

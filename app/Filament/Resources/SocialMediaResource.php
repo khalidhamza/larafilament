@@ -62,7 +62,7 @@ class SocialMediaResource extends Resource
         return $table
             ->columns([
                 TextColumn::make('name')->sortable()->searchable(),
-                TextColumn::make('url'),
+                TextColumn::make('url')->searchable(),
                 ToggleColumn::make('status'),
             ])
             ->filters([
